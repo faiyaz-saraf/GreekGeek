@@ -33,11 +33,6 @@ The API route fetches options chain data from Yahoo Finance (strike prices, expi
 
 All five Greeks (Delta, Gamma, Theta, Vega, Rho) are derived from the standard Black-Scholes model using the Abramowitz-Stegun approximation for the cumulative normal distribution.
 
-## Vercel Deployment
-
-1. Push the repo to GitHub
-2. Import the repo at vercel.com/new
-3. Deploy (no environment variables needed)
 
 ## File Structure
 
