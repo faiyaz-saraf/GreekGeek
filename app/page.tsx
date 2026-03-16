@@ -274,6 +274,30 @@ export default function Home() {
           </div>
         )}
       </div>
+
+      <footer className="mt-20 pb-8 text-center text-gray-500 text-xs">
+        <p>
+          Created by Faiyaz Saraf · © {new Date().getFullYear()} GreekGeek
+        </p>
+        <div className="mt-2 flex items-center justify-center gap-4">
+          <a
+            href="https://github.com/faiyaz-saraf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-white transition-colors"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/faiyazsaraf/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-white transition-colors"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </footer>
     </main>
   );
 }

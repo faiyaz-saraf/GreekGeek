@@ -1,7 +1,7 @@
 Bug fixes and changes ->
 
-- Need to add Created by Faiyaz Saraf and Copyright at the bottom
-- Need to add github/linkdein links at bottom
+- Need to add Created by Faiyaz Saraf and Copyright at the bottom XDONE
+- Need to add github/linkdein links at bottom XDONE
 - Fix bug where clicking search again on the same stock ticker again makes info dissapear 
 - Make more zoomed in on PC
 - Make the search bar autodrop down menu to fill in searches and show possible tickers
