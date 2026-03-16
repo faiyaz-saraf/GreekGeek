@@ -5,3 +5,4 @@ Bug fixes and changes ->
 - Fix bug where clicking search again on the same stock ticker again makes info dissapear 
 - Make more zoomed in on PC
 - Make the search bar autodrop down menu to fill in searches and show possible tickers
+- Add more info to landing page
