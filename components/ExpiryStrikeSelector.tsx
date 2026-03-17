@@ -1,5 +1,7 @@
 "use client";
 
+import Tooltip from "./Tooltip";
+
 interface Strike {
   strike: number;
 }
@@ -32,6 +34,7 @@ export default function ExpiryStrikeSelector({
       <div className="flex-1">
         <label className="block text-xs text-gray-500 mb-1 uppercase tracking-wider">
           Expiration
+          <Tooltip text="The date the option contract expires. After this date, the option is worthless if not exercised." />
         </label>
         <select
           value={selectedExpiry}
@@ -48,6 +51,7 @@ export default function ExpiryStrikeSelector({
       <div className="flex-1">
         <label className="block text-xs text-gray-500 mb-1 uppercase tracking-wider">
           Strike Price
+          <Tooltip text="The price at which you have the right to buy (call) or sell (put) the stock when the option is exercised." />
         </label>
         <select
           value={selectedStrike}
