@@ -63,7 +63,6 @@ export default function Home() {
   const [error, setError] = useState("");
   const [searched, setSearched] = useState(false);
 
-  // Build the chain structure the ExpiryStrikeSelector expects
   const chain: ChainEntry[] = expirations.map((exp) => ({
     expiration: exp,
     strikes:
@@ -72,7 +71,6 @@ export default function Home() {
         : [{ strike: 0 }],
   }));
 
-  // Step 1: search ticker → fetch expirations
   async function handleSearch(searchTicker: string) {
     setLoadingExpirations(true);
     setError("");
@@ -110,7 +108,6 @@ export default function Home() {
     }
   }
 
-  // Step 2: when expiry changes → fetch chain with Greeks
   const fetchChain = useCallback(async () => {
     if (!ticker || !selectedExpiry) return;
 
@@ -134,7 +131,6 @@ export default function Home() {
       setStrikes(chainStrikes);
       setDte(data.dte ?? null);
 
-      // Default to middle strike (closest to ATM)
       if (chainStrikes.length > 0) {
         const mid =
           chainStrikes[Math.floor(chainStrikes.length / 2)]?.strike ??
@@ -155,7 +151,6 @@ export default function Home() {
     }
   }, [fetchChain, ticker, selectedExpiry]);
 
-  // Get Greeks for the selected strike + call/put
   const currentStrike = strikes.find((s) => s.strike === selectedStrike);
   const greeks: GreeksPayload | null =
     currentStrike
@@ -173,131 +168,138 @@ export default function Home() {
   const hasData = expirations.length > 0 && strikes.length > 0 && !loading;
 
   return (
-    <main className="min-h-screen pb-20">
-      <header className="pt-10 pb-8 text-center">
-        <h1 className="text-5xl font-bold tracking-tight">
-          GreekGeek
-          <span className="text-indigo-400 ml-2 font-mono">Ω</span>
-        </h1>
-        <p className="text-gray-500 mt-2 text-base">
-          Options Greeks simplified for any NASDAQ stock
-        </p>
-      </header>
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-1">
+        {/* Header */}
+        <header className="pt-14 pb-10 text-center">
+          <h1 className="font-display text-5xl md:text-6xl tracking-tight">
+            GreekGeek
+            <span className="text-amber-400 ml-2">Ω</span>
+          </h1>
+          <p className="text-gray-500 mt-3 text-sm tracking-widest uppercase">
+            Options Greeks simplified
+          </p>
+        </header>
 
-      <div className="max-w-5xl mx-auto px-6">
-        <SearchBar onSearch={handleSearch} loading={loadingExpirations} />
+        {/* Content */}
+        <div className="max-w-5xl mx-auto px-6">
+          <SearchBar onSearch={handleSearch} loading={loadingExpirations} />
 
-        {error && (
-          <div className="mt-4 bg-red-950/50 border border-red-800 rounded-xl px-4 py-3 text-red-300 text-sm">
-            {error}
-          </div>
-        )}
-
-        {loading && (
-          <div className="flex justify-center mt-10">
-            <svg
-              className="animate-spin h-8 w-8 text-indigo-400"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-              />
-            </svg>
-          </div>
-        )}
-
-        {hasData && (
-          <div className="mt-6 space-y-4 fade-up">
-            <ExpiryStrikeSelector
-              chain={chain}
-              selectedExpiry={selectedExpiry}
-              selectedStrike={selectedStrike}
-              onExpiryChange={handleExpiryChange}
-              onStrikeChange={setSelectedStrike}
-            />
-
-            <div className="flex justify-center">
-              <CallPutToggle
-                selected={contractType}
-                onChange={setContractType}
-              />
+          {error && (
+            <div className="mt-5 max-w-[720px] mx-auto bg-red-950/40 border border-red-800/50 rounded-xl px-4 py-3 text-red-300 text-sm">
+              {error}
             </div>
-          </div>
-        )}
+          )}
 
-        {hasData && greeks && (
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {greekKeys.map((key, i) => (
-              <GreekCard
-                key={key}
-                symbol={SYMBOLS[key]}
-                name={NAMES[key]}
-                value={greeks[key]}
-                tooltip={TOOLTIPS[key]}
-                animationClass={`fade-up fade-up-${i + 1}`}
-                explanation={buildExplanation(
-                  key,
-                  greeks[key],
-                  ticker,
-                  contractType,
-                  dte,
-                  greeks.iv
-                )}
+          {loading && (
+            <div className="flex justify-center mt-14">
+              <svg
+                className="animate-spin h-8 w-8 text-indigo-400"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+            </div>
+          )}
+
+          {hasData && (
+            <div className="mt-8 space-y-4 fade-up">
+              <ExpiryStrikeSelector
+                chain={chain}
+                selectedExpiry={selectedExpiry}
+                selectedStrike={selectedStrike}
+                onExpiryChange={handleExpiryChange}
+                onStrikeChange={setSelectedStrike}
               />
-            ))}
-          </div>
-        )}
 
-        {hasData && !greeks && (
-          <div className="mt-8 text-center text-gray-500 text-sm">
-            No Greeks data available for this {contractType} at the ${selectedStrike} strike.
-          </div>
-        )}
+              <div className="flex justify-center">
+                <CallPutToggle
+                  selected={contractType}
+                  onChange={setContractType}
+                />
+              </div>
+            </div>
+          )}
 
-        {!searched && (
-          <div className="text-center mt-16 text-gray-600">
-            <p className="text-5xl mb-4 font-mono">Ω</p>
-            <p className="text-sm">
-              Enter a ticker above to explore its options Greeks.
-            </p>
-          </div>
-        )}
-      </div>
+          {hasData && greeks && (
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {greekKeys.map((key, i) => (
+                <GreekCard
+                  key={key}
+                  symbol={SYMBOLS[key]}
+                  name={NAMES[key]}
+                  value={greeks[key]}
+                  tooltip={TOOLTIPS[key]}
+                  animationClass={`fade-up fade-up-${i + 1}`}
+                  explanation={buildExplanation(
+                    key,
+                    greeks[key],
+                    ticker,
+                    contractType,
+                    dte,
+                    greeks.iv
+                  )}
+                />
+              ))}
+            </div>
+          )}
 
-      <footer className="mt-20 pb-8 text-center text-gray-500 text-xs">
-        <p>
+          {hasData && !greeks && (
+            <div className="mt-8 text-center text-gray-500 text-sm">
+              No Greeks data available for this {contractType} at the ${selectedStrike} strike.
+            </div>
+          )}
+
+          {!searched && (
+            <div className="text-center mt-24 text-gray-600">
+              <p className="text-6xl mb-5 font-display text-gray-700">Ω</p>
+              <p className="text-sm tracking-wide text-gray-500">
+                Enter a ticker above to explore its options Greeks.
+              </p>
+            </div>
+          )}
+        </div>
+      </main>
+
+      {/* Footer pinned to bottom */}
+      <footer className="mt-auto pt-12 pb-6 text-center">
+        <div className="w-16 h-px bg-gray-800 mx-auto mb-5" />
+        <p className="text-gray-500 text-xs">
           Created by Faiyaz Saraf · © {new Date().getFullYear()} GreekGeek
         </p>
-        <div className="mt-2 flex items-center justify-center gap-4">
+        <div className="mt-2 flex items-center justify-center text-xs">
           <a
             href="https://github.com/faiyaz-saraf"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-white transition-colors"
+            className="text-gray-500 hover:text-amber-400 transition-colors"
           >
             GitHub
           </a>
+          <span className="footer-sep" />
           <a
             href="https://www.linkedin.com/in/faiyazsaraf/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-white transition-colors"
+            className="text-gray-500 hover:text-amber-400 transition-colors"
           >
             LinkedIn
           </a>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }
