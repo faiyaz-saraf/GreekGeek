@@ -24,7 +24,7 @@ export default function GreekCard({
 
   return (
     <div
-      className={`greek-card bg-gray-900/80 border border-white/[0.06] rounded-2xl p-5 hover:border-indigo-500/50 opacity-0 ${animationClass}`}
+      className={`greek-card bg-gray-900/80 border border-white/[0.06] rounded-2xl p-5 hover:border-amber-400/50 opacity-0 ${animationClass}`}
     >
       <div className="flex items-start justify-between mb-3">
         <div>
