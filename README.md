@@ -1,6 +1,6 @@
 # GreekGeek Ω
 
-Website Link: https://www.greekgeek.online/ 
+Link to Wesbite: https://www.greekgeek.online/ 
 
 Options Greeks simplified for any stock. Enter a ticker, pick an expiry and strike, and get plain-English breakdowns of Delta, Gamma, Theta, Vega, and Rho.
 
