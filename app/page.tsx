@@ -175,16 +175,16 @@ export default function Home() {
   return (
     <main className="min-h-screen pb-20">
       <header className="pt-10 pb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">
+        <h1 className="text-5xl font-bold tracking-tight">
           GreekGeek
           <span className="text-indigo-400 ml-2 font-mono">Ω</span>
         </h1>
-        <p className="text-gray-500 mt-2 text-sm">
+        <p className="text-gray-500 mt-2 text-base">
           Options Greeks simplified for any NASDAQ stock
         </p>
       </header>
 
-      <div className="max-w-3xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-6">
         <SearchBar onSearch={handleSearch} loading={loadingExpirations} />
 
         {error && (
@@ -237,7 +237,7 @@ export default function Home() {
         )}
 
         {hasData && greeks && (
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {greekKeys.map((key, i) => (
               <GreekCard
                 key={key}
