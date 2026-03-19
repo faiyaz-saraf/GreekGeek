@@ -40,14 +40,14 @@ export default function SearchBar({ onSearch, loading }: SearchBarProps) {
           value={value}
           onChange={(e) => setValue(e.target.value.toUpperCase())}
           placeholder="Search a NASDAQ ticker… e.g. AAPL, NVDA, TSLA"
-          className="w-full bg-gray-900/80 border border-white/10 rounded-xl pl-12 pr-28 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+          className="w-full bg-gray-900/80 border border-white/10 rounded-xl pl-12 pr-28 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-amber-400/50 focus:ring-1 focus:ring-amber-400/30 transition-all focus:shadow-[0_0_12px_rgba(245,158,11,0.15)]"
           disabled={loading}
           autoFocus
         />
         <button
           type="submit"
           disabled={loading || value.trim().length === 0}
-          className="btn-search absolute right-2 top-1/2 -translate-y-1/2 bg-indigo-500 hover:bg-indigo-400 disabled:bg-gray-700 disabled:text-gray-500 text-white px-5 py-2.5 rounded-lg text-sm font-semibold"
+          className="btn-search absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-400 to-indigo-500 hover:from-indigo-300 hover:to-indigo-400 disabled:bg-gray-700 disabled:from-gray-700 disabled:to-gray-700 disabled:text-gray-500 text-white px-5 py-2.5 rounded-lg text-sm font-semibold"
         >
           {loading ? (
             <svg
