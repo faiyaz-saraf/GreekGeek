@@ -47,7 +47,7 @@ export default function SearchBar({ onSearch, loading }: SearchBarProps) {
         <button
           type="submit"
           disabled={loading || value.trim().length === 0}
-          className="btn-search absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-400 to-indigo-500 hover:from-indigo-300 hover:to-indigo-400 disabled:bg-gray-700 disabled:from-gray-700 disabled:to-gray-700 disabled:text-gray-500 text-white px-5 py-2.5 rounded-lg text-sm font-semibold"
+          className="btn-search absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-indigo-400 to-indigo-400 hover:from-indigo-300 hover:to-indigo-300 disabled:bg-gray-700 disabled:from-gray-700 disabled:to-gray-700 disabled:text-gray-500 text-white px-5 py-2.5 rounded-lg text-sm font-semibold"
         >
           {loading ? (
             <svg
